@@ -1,0 +1,25 @@
+# Archivos generados
+*.log
+*.tmp
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+*.sublime-*
+
+# Dependencias (si se agregan en el futuro)
+node_modules/
+package-lock.json
+
+# Archivos de build
+dist/
+build/
+
+# Variables de entorno
+.env
+.env.local
+.env.*.local
