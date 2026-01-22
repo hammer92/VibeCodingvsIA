@@ -8,7 +8,7 @@
 
 **Una presentación interactiva sobre la evolución del desarrollo de software moderno.**
 
-[🌐 Ver Demo en Vivo](https://hammer92.github.io/ViveCodingvsIA/) |
+[🌐 Ver Demo en Vivo](https://hammer92.github.io/VibeCodingvsIA/) |
 [📖 Documentación](#documentación) |
 [🎯 Contenido](#contenido) 
 
