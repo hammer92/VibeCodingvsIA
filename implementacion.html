@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingeniería de IA: Presentación Interactiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- 
+    Palette Selected: "Energetic & Playful"
+    Primary Blue: #4338ca (Indigo-700)
+    Vibrant Pink: #db2777 (Pink-600)
+    Electric Purple: #7c3aed (Violet-600)
+    Sunny Amber: #d97706 (Amber-600)
+    Background: #f8fafc (Slate-50)
+    -->
+
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            /* Prevent body scroll, handle in main container */
+        }
+
+        /* Presentation Layout Styles */
+        #presentation-container {
+            height: 100vh;
+            width: 100vw;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            padding-top: 60px;
+            /* Space for fixed header */
+            padding-bottom: 20px;
+            overflow-y: hidden;
+            /* Hide overflow mostly, use internal scroll if absolutely needed on small screens */
+        }
+
+        /* Adjust content for smaller screens within the slide */
+        .slide-content {
+            max-height: 100%;
+            overflow-y: auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 30vh;
+            /* Responsive height based on viewport */
+            max-height: 350px;
+            min-height: 250px;
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(to right, #4338ca, #db2777);
+        }
+
+        /* Hide scrollbar for cleaner look */
+        #presentation-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #presentation-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #presentation-container::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Fixed Header -->
+    <header
+        class="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 h-[60px] flex items-center shadow-sm">
+        <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-indigo-800 flex items-center">
+                <span class="text-2xl mr-2">🚀</span> AI <span class="text-pink-600 ml-1">Engineering</span>
+            </h1>
+            <nav class="hidden md:flex space-x-4 text-xs font-bold text-slate-500 uppercase tracking-widest">
+                <span class="hover:text-indigo-600 cursor-pointer" onclick="scrollToSlide(0)">Inicio</span>
+                <span class="hover:text-indigo-600 cursor-pointer" onclick="scrollToSlide(1)">Panorama</span>
+                <span class="hover:text-indigo-600 cursor-pointer" onclick="scrollToSlide(2)">Técnicas</span>
+                <span class="hover:text-indigo-600 cursor-pointer" onclick="scrollToSlide(6)">Herramientas</span>
+            </nav>
+        </div>
+        <!-- Progress Bar -->
+        <div class="absolute bottom-0 left-0 h-1 bg-indigo-100 w-full">
+            <div id="progressBar"
+                class="h-full bg-gradient-to-r from-indigo-500 to-pink-500 w-0 transition-all duration-300"></div>
+        </div>
+    </header>
+
+    <!-- Main Scroll Container -->
+    <main id="presentation-container" onscroll="updateProgress()">
+
+        <!-- SLIDE 1: Hero -->
+        <section class="slide bg-white">
+            <div class="slide-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="mb-8 animate-fade-in-up">
+                    <span
+                        class="inline-block py-1 px-3 rounded-full bg-indigo-100 text-indigo-700 text-sm font-bold tracking-wider mb-6 uppercase">Estado
+                        del Arte 2024-2025</span>
+                    <h2 class="text-6xl md:text-8xl font-extrabold mb-6 leading-tight tracking-tight">
+                        Más allá del <br>
+                        <span class="gradient-text">Prompt</span>
+                    </h2>
+                    <p class="text-2xl text-slate-500 max-w-3xl mx-auto font-light">
+                        De chats a sistemas autónomos. <br>
+                        Una guía visual de la <strong>Ingeniería de Sistemas de IA</strong> moderna.
+                    </p>
+                </div>
+                <div class="flex justify-center mt-10">
+                    <button onclick="scrollToSlide(1)"
+                        class="bg-indigo-600 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-indigo-700 transition transform hover:scale-105 flex items-center">
+                        Comenzar Presentación <span class="ml-2">↓</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: Overview (Radar) -->
+        <section class="slide bg-slate-50">
+            <div class="slide-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center h-full">
+                    <div class="text-left">
+                        <h3 class="text-4xl font-bold text-slate-800 mb-6">El Espectro de Complejidad</h3>
+                        <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                            No todas las IAs son iguales. Hemos evolucionado de simples llamadas a API hacia ecosistemas
+                            vivos.
+                        </p>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                            <ul class="space-y-4">
+                                <li class="flex items-center p-2 rounded hover:bg-slate-50">
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold mr-4">
+                                        1</div>
+                                    <div>
+                                        <span class="block font-bold text-slate-800">Autonomía</span>
+                                        <span class="text-sm text-slate-500">Acción sin intervención humana.</span>
+                                    </div>
+                                </li>
+                                <li class="flex items-center p-2 rounded hover:bg-slate-50">
+                                    <div
+                                        class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold mr-4">
+                                        2</div>
+                                    <div>
+                                        <span class="block font-bold text-slate-800">Fiabilidad</span>
+                                        <span class="text-sm text-slate-500">Consistencia y reducción de errores.</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white rounded-3xl p-6 card-shadow border border-slate-100 flex flex-col items-center justify-center h-[60vh]">
+                        <h4 class="text-sm font-bold text-slate-400 mb-4 uppercase">Comparativa de Capacidades</h4>
+                        <div class="chart-container" style="height: 100%; max-height: 500px; width: 100%;">
+                            <canvas id="radarOverview"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: MCP -->
+        <section class="slide bg-white">
+            <div class="slide-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-5">
+                        <span class="text-indigo-600 font-bold tracking-widest text-sm uppercase">Técnica #1</span>
+                        <h3 class="text-5xl font-bold text-indigo-900 mb-4">MCP</h3>
+                        <p class="text-xl text-slate-500 font-light mb-6">Model Context Protocol</p>
+                        <p class="text-slate-700 mb-6 text-lg">
+                            El "USB-C" de la IA. Un estándar abierto para conectar asistentes con tus datos sin
+                            reinventar la rueda cada vez.
+                        </p>
+                        <div class="bg-indigo-50 p-6 rounded-xl border-l-4 border-indigo-600">
+                            <h4 class="font-bold text-indigo-800 mb-2">¿Por qué usarlo?</h4>
+                            <p class="text-indigo-900">Interoperabilidad total. Escribes el conector una vez, funciona
+                                en Claude, ChatGPT y herramientas locales.</p>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-7">
+                        <div
+                            class="bg-slate-900 rounded-2xl p-8 text-white relative overflow-hidden card-shadow min-h-[400px] flex flex-col justify-center">
+                            <!-- Diagrama CSS/HTML -->
+                            <div class="flex justify-between items-center mb-12 relative z-10">
+                                <div class="text-center w-1/4">
+                                    <div
+                                        class="w-20 h-20 bg-pink-500 rounded-full mx-auto flex items-center justify-center text-3xl font-bold mb-3 shadow-lg hover:scale-110 transition">
+                                        🤖</div>
+                                    <div class="font-bold">Cliente IA</div>
+                                </div>
+                                <div class="flex-1 h-1 bg-slate-700 relative mx-4">
+                                    <div
+                                        class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-slate-800 px-4 py-1 rounded-full border border-indigo-500 text-indigo-300 text-xs font-mono uppercase tracking-wider">
+                                        Protocolo MCP
+                                    </div>
+                                    <!-- Animated dots -->
+                                    <div
+                                        class="absolute top-[-4px] left-0 w-3 h-3 bg-indigo-400 rounded-full animate-ping">
+                                    </div>
+                                </div>
+                                <div class="text-center w-1/4">
+                                    <div
+                                        class="w-20 h-20 bg-indigo-600 rounded-xl mx-auto flex items-center justify-center text-3xl font-bold mb-3 shadow-lg">
+                                        📦</div>
+                                    <div class="font-bold">Servidor</div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-4 relative z-10 mt-4">
+                                <div
+                                    class="bg-slate-800/50 backdrop-blur p-4 rounded-lg text-center border border-slate-700 hover:border-amber-400 transition">
+                                    <div class="text-2xl mb-2">📂</div>
+                                    <div class="text-xs text-slate-300">Docs Locales</div>
+                                </div>
+                                <div
+                                    class="bg-slate-800/50 backdrop-blur p-4 rounded-lg text-center border border-slate-700 hover:border-green-400 transition">
+                                    <div class="text-2xl mb-2">🗄️</div>
+                                    <div class="text-xs text-slate-300">PostgreSQL</div>
+                                </div>
+                                <div
+                                    class="bg-slate-800/50 backdrop-blur p-4 rounded-lg text-center border border-slate-700 hover:border-blue-400 transition">
+                                    <div class="text-2xl mb-2">☁️</div>
+                                    <div class="text-xs text-slate-300">Google Drive</div>
+                                </div>
+                            </div>
+                            <!-- Background Glow -->
+                            <div
+                                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-indigo-600 rounded-full opacity-20 filter blur-3xl">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: Workflows & Skills -->
+        <section class="slide bg-slate-50">
+            <div class="slide-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-10">
+                    <h3 class="text-3xl font-bold text-slate-800">Control vs. Capacidad</h3>
+                    <p class="text-slate-500">Dos enfoques complementarios para construir aplicaciones.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 h-full max-h-[70vh]">
+                    <!-- Workflows Card -->
+                    <div class="bg-white rounded-3xl p-8 card-shadow flex flex-col">
+                        <div class="flex items-center mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center text-2xl mr-4">
+                                ⛓️</div>
+                            <div>
+                                <h4 class="text-2xl font-bold text-pink-600">Workflows</h4>
+                                <span class="text-xs font-bold text-slate-400 uppercase">Determinismo</span>
+                            </div>
+                        </div>
+                        <p class="text-slate-600 mb-6 flex-grow">
+                            Secuencias rígidas. Ideales para procesos de negocio donde el error no es opción
+                            (Facturación, Reportes Legales).
+                        </p>
+                        <!-- Simple visual for workflow -->
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                            <div class="flex justify-between items-center text-xs font-bold text-slate-600">
+                                <span class="bg-white p-2 rounded shadow">Input</span>
+                                <span>→</span>
+                                <span class="bg-pink-100 p-2 rounded text-pink-700">Paso 1</span>
+                                <span>→</span>
+                                <span class="bg-pink-100 p-2 rounded text-pink-700">Paso 2</span>
+                                <span>→</span>
+                                <span class="bg-slate-800 text-white p-2 rounded">Output</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skills Card -->
+                    <div class="bg-white rounded-3xl p-8 card-shadow flex flex-col">
+                        <div class="flex items-center mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-2xl mr-4">
+                                🛠️</div>
+                            <div>
+                                <h4 class="text-2xl font-bold text-amber-600">Skills (Tools)</h4>
+                                <span class="text-xs font-bold text-slate-400 uppercase">Agencia</span>
+                            </div>
+                        </div>
+                        <p class="text-slate-600 mb-4 flex-grow">
+                            Capacidad de usar herramientas. La IA no solo habla, <strong>actúa</strong>: busca en web,
+                            calcula, envía emails.
+                        </p>
+                        <div class="chart-container flex-grow h-[200px]">
+                            <canvas id="skillsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: Multi-Agents -->
+        <section class="slide bg-white">
+            <div class="slide-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div
+                        class="order-2 lg:order-1 h-[50vh] w-full bg-slate-50 rounded-3xl border border-slate-100 p-4 flex items-center justify-center relative overflow-hidden">
+                        <div id="agentNetwork" style="width: 100%; height: 100%;"></div>
+                        <!-- Overlay label -->
+                        <div
+                            class="absolute bottom-4 left-4 bg-white/80 px-3 py-1 rounded text-xs text-slate-500 font-bold backdrop-blur">
+                            Visualización de Red
+                        </div>
+                    </div>
+
+                    <div class="order-1 lg:order-2">
+                        <span class="text-violet-600 font-bold tracking-widest text-sm uppercase">Técnica #4</span>
+                        <h3 class="text-5xl font-bold text-violet-700 mb-6">Sistemas Multi-Agente</h3>
+                        <p class="text-xl text-slate-600 mb-8">
+                            La inteligencia emerge de la colaboración. No uses un solo modelo; usa un
+                            <strong>equipo</strong>.
+                        </p>
+
+                        <div class="space-y-6">
+                            <div class="flex">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 bg-violet-100 rounded-full flex items-center justify-center text-violet-600 text-xl font-bold">
+                                    1</div>
+                                <div class="ml-4">
+                                    <h5 class="text-lg font-bold text-slate-800">Especialización</h5>
+                                    <p class="text-slate-500">Un agente "Investigador" busca datos. Un agente "Redactor"
+                                        escribe.</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 bg-violet-100 rounded-full flex items-center justify-center text-violet-600 text-xl font-bold">
+                                    2</div>
+                                <div class="ml-4">
+                                    <h5 class="text-lg font-bold text-slate-800">Supervisión</h5>
+                                    <p class="text-slate-500">Un agente "Manager" revisa la calidad antes de entregar el
+                                        resultado al usuario.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 6: Spect & GraphRAG -->
+        <section class="slide bg-slate-900 text-white">
+            <div class="slide-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+                    <!-- Spect / Evals -->
+                    <div class="p-8 border border-slate-700 rounded-3xl bg-slate-800/50 backdrop-blur">
+                        <h3 class="text-3xl font-bold text-white mb-2">Spect (Evaluations)</h3>
+                        <p class="text-slate-400 mb-6 text-sm uppercase tracking-wide">Test Driven AI Development</p>
+
+                        <div class="chart-container" style="height: 250px;">
+                            <canvas id="spectChart"></canvas>
+                        </div>
+                        <p class="mt-6 text-slate-300">
+                            Sin métricas, vuelas a ciegas. Spect define tests unitarios para la "vibe", formato y lógica
+                            de tu IA.
+                        </p>
+                    </div>
+
+                    <!-- GraphRAG -->
+                    <div class="p-8 bg-white text-slate-900 rounded-3xl">
+                        <h3 class="text-3xl font-bold text-indigo-700 mb-2">GraphRAG</h3>
+                        <p class="text-slate-500 mb-6 text-sm uppercase tracking-wide">Conocimiento Estructurado</p>
+
+                        <div class="mb-6 flex justify-center space-x-8">
+                            <div class="text-center">
+                                <div class="text-4xl mb-2">🔍</div>
+                                <div class="font-bold text-slate-800">RAG</div>
+                                <div class="text-xs text-slate-500">Palabras Clave</div>
+                            </div>
+                            <div class="self-center text-slate-300 text-2xl">vs</div>
+                            <div class="text-center">
+                                <div class="text-4xl mb-2">🕸️</div>
+                                <div class="font-bold text-pink-600">GraphRAG</div>
+                                <div class="text-xs text-slate-500">Relaciones</div>
+                            </div>
+                        </div>
+                        <p class="text-slate-600">
+                            Entiende cómo se conectan las cosas. Crucial para investigaciones legales, financieras o
+                            científicas donde el contexto profundo importa.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 7: IDEs Comparison & Conclusion -->
+        <section class="slide bg-white">
+            <div class="slide-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl font-bold text-slate-800">El Duelo de Herramientas</h2>
+                    <p class="text-xl text-slate-500">Dime qué construyes y te diré qué usar.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-7 bg-white p-4 rounded-xl card-shadow border border-slate-100">
+                        <div id="ideHeatmap" style="width: 100%; height: 350px;"></div>
+                    </div>
+
+                    <div class="md:col-span-5 space-y-6">
+                        <div class="p-6 bg-indigo-50 rounded-2xl border border-indigo-100 transition hover:shadow-md">
+                            <h4 class="font-bold text-indigo-800 text-xl mb-2">☁️ Amazon Q Developer</h4>
+                            <p class="text-sm text-slate-700">
+                                <strong>La Fortaleza Corporativa.</strong> Insuperable para integraciones profundas con
+                                AWS, seguridad empresarial y flujos de trabajo (Workflows) estables.
+                            </p>
+                        </div>
+                        <div class="p-6 bg-purple-50 rounded-2xl border border-purple-100 transition hover:shadow-md">
+                            <h4 class="font-bold text-purple-800 text-xl mb-2">🚀 Antigravity / Cursor</h4>
+                            <p class="text-sm text-slate-700">
+                                <strong>El Agente Ágil.</strong> La elección para sistemas Multi-Agente. Edita todo tu
+                                proyecto a la vez y entiende el contexto global de tu código.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scripts for Charts -->
+    <script>
+        // --- Navigation Logic ---
+        const container = document.getElementById('presentation-container');
+        const progressBar = document.getElementById('progressBar');
+        const totalSlides = 7; // Number of sections
+
+        function scrollToSlide(index) {
+            const height = window.innerHeight;
+            container.scrollTo({
+                top: height * index,
+                behavior: 'smooth'
+            });
+        }
+
+        function updateProgress() {
+            const scrollTop = container.scrollTop;
+            const scrollHeight = container.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        // --- UTILITY: Wrap Labels for Chart.js ---
+        function wrapLabel(label, maxLen = 16) {
+            if (label.length <= maxLen) return label;
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + " " + words[i]).length <= maxLen) {
+                    currentLine += " " + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // --- CHART 1: Overview Radar Chart ---
+        const ctxRadar = document.getElementById('radarOverview').getContext('2d');
+        const radarData = {
+            labels: ['Interoperabilidad', 'Autonomía', 'Fiabilidad', 'Complejidad', 'Costo Setup'],
+            datasets: [{
+                label: 'MCP + Workflows',
+                data: [9, 4, 9, 5, 4],
+                fill: true,
+                backgroundColor: 'rgba(219, 39, 119, 0.2)', // Pink
+                borderColor: 'rgb(219, 39, 119)',
+                pointBackgroundColor: 'rgb(219, 39, 119)',
+                pointBorderColor: '#fff'
+            }, {
+                label: 'Multi-Agentes',
+                data: [6, 10, 6, 9, 8],
+                fill: true,
+                backgroundColor: 'rgba(79, 70, 229, 0.2)', // Indigo
+                borderColor: 'rgb(79, 70, 229)',
+                pointBackgroundColor: 'rgb(79, 70, 229)',
+                pointBorderColor: '#fff'
+            }]
+        };
+
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: radarData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                elements: { line: { borderWidth: 3 } },
+                scales: {
+                    r: {
+                        angleLines: { display: true },
+                        suggestedMin: 0,
+                        suggestedMax: 10,
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                        pointLabels: {
+                            font: { size: 11, family: 'Outfit' },
+                            callback: function (label) { return wrapLabel(label, 12); }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: {
+                        callbacks: {
+                            title: function (context) {
+                                const label = context[0].label;
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // --- CHART 2: Skills Bar Chart ---
+        const ctxSkills = document.getElementById('skillsChart').getContext('2d');
+        new Chart(ctxSkills, {
+            type: 'bar',
+            data: {
+                labels: ['Chatbot', 'RAG Simple', 'Agente c/ Tools'],
+                datasets: [{
+                    label: 'Acción',
+                    data: [10, 30, 95],
+                    backgroundColor: ['#cbd5e1', '#93c5fd', '#d97706'],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { x: { display: false, max: 100 }, y: { grid: { display: false } } },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            title: function (context) {
+                                return context[0].label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // --- CHART 3: Spect (Evals) Line Chart ---
+        const ctxSpect = document.getElementById('spectChart').getContext('2d');
+        new Chart(ctxSpect, {
+            type: 'line',
+            data: {
+                labels: ['V1', 'V2', 'V3', 'V4', 'V5'],
+                datasets: [{
+                    label: 'Sin Tests',
+                    data: [90, 85, 70, 65, 50],
+                    borderColor: '#ef4444',
+                    tension: 0.4,
+                    borderDash: [5, 5]
+                }, {
+                    label: 'Con Spect',
+                    data: [90, 92, 91, 94, 95],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { display: true, min: 40, grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8' } },
+                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                },
+                plugins: {
+                    legend: { labels: { color: '#fff' } },
+                    tooltip: {
+                        callbacks: {
+                            title: function (context) { return context[0].label; }
+                        }
+                    }
+                }
+            }
+        });
+
+        // --- CHART 4: Multi-Agent Network (Plotly) ---
+        const agentTraceNodes = {
+            x: [1, 2, 3, 2],
+            y: [1, 2, 1, 0.5],
+            text: ['<b>Orquestador</b>', 'Coder', 'Reviewer', 'Tester'],
+            mode: 'markers+text',
+            type: 'scatter',
+            marker: { size: [45, 35, 35, 35], color: ['#4f46e5', '#db2777', '#d97706', '#059669'], line: { color: 'white', width: 2 } },
+            textposition: 'top center',
+            textfont: { family: 'Outfit', size: 14, color: '#333' },
+            hoverinfo: 'none'
+        };
+
+        const agentTraceEdges = {
+            x: [1, 2, null, 1, 3, null, 1, 2, null, 2, 3],
+            y: [1, 2, null, 1, 1, null, 1, 0.5, null, 2, 1],
+            mode: 'lines',
+            line: { color: '#cbd5e1', width: 3 },
+            hoverinfo: 'none',
+            type: 'scatter'
+        };
+
+        Plotly.newPlot('agentNetwork', [agentTraceEdges, agentTraceNodes], {
+            margin: { t: 20, b: 20, l: 20, r: 20 },
+            showlegend: false,
+            xaxis: { visible: false, range: [0.5, 3.5] },
+            yaxis: { visible: false, range: [0, 2.5] },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            hovermode: false
+        }, { displayModeBar: false, responsive: true });
+
+        // --- CHART 5: IDE Heatmap (Plotly) ---
+        const ideData = [{
+            z: [[9, 5, 8], [6, 10, 7], [7, 9, 6]],
+            x: ['Seguridad', 'Agentes', 'Nube'],
+            y: ['Amazon Q', 'Antigravity', 'VS Code'],
+            type: 'heatmap',
+            colorscale: [[0, '#f3e8ff'], [1, '#7c3aed']],
+            showscale: false
+        }];
+
+        Plotly.newPlot('ideHeatmap', ideData, {
+            title: { text: 'Adaptabilidad del IDE', font: { family: 'Outfit', size: 18, color: '#1e293b' } },
+            font: { family: 'Outfit' },
+            margin: { t: 50, l: 100, r: 20, b: 30 },
+            xaxis: { side: 'top' }
+        }, { displayModeBar: false, responsive: true });
+
+    </script>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+        <div class="nav-indicator" id="navIndicator"></div>
+        <div class="nav-arrows">
+            <button class="nav-arrow nav-arrow-up" id="btnPrev" aria-label="Sección anterior">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                </svg>
+            </button>
+            <button class="nav-arrow nav-arrow-down" id="btnNext" aria-label="Sección siguiente">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+        </div>
+        <div class="nav-hint"><kbd>↑</kbd><kbd>↓</kbd></div>
+        <div class="slide-counter" id="slideCounter">1/7</div>
+        <a href="index.html" class="nav-home" title="Volver a Módulos">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+        </a>
+    </div>
+
+    <style>
+        .nav-controls {
+            position: fixed;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            z-index: 100;
+        }
+
+        .nav-indicator {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(100, 116, 139, 0.3);
+            border: 2px solid rgba(100, 116, 139, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot:hover {
+            background: rgba(219, 39, 119, 0.5);
+            border-color: #db2777;
+            transform: scale(1.2);
+        }
+
+        .nav-dot.active {
+            background: #db2777;
+            border-color: #db2777;
+            box-shadow: 0 0 12px rgba(219, 39, 119, 0.6);
+        }
+
+        .nav-arrows {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .nav-arrow {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(248, 250, 252, 0.95);
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            color: #64748b;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-arrow svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .nav-arrow:hover:not(.disabled) {
+            background: #4338ca;
+            border-color: #4338ca;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(67, 56, 202, 0.4);
+        }
+
+        .nav-arrow.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .nav-hint {
+            font-size: 0.65rem;
+            color: #64748B;
+            display: flex;
+            gap: 3px;
+        }
+
+        .nav-hint kbd {
+            padding: 3px 6px;
+            background: rgba(248, 250, 252, 0.9);
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: #64748b;
+        }
+
+        .slide-counter {
+            font-size: 0.7rem;
+            color: #64748B;
+            font-weight: 600;
+            background: rgba(248, 250, 252, 0.9);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .nav-controls {
+                right: 10px;
+                gap: 10px;
+            }
+
+            .nav-arrow {
+                width: 34px;
+                height: 34px;
+            }
+
+            .nav-hint,
+            .slide-counter {
+                display: none;
+            }
+
+            .nav-dot {
+                width: 8px;
+                height: 8px;
+            }
+
+            .nav-home {
+                width: 34px;
+                height: 34px;
+            }
+        }
+
+        .nav-home {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(248, 250, 252, 0.95);
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            text-decoration: none;
+        }
+
+        .nav-home svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .nav-home:hover {
+            background: #4338ca;
+            border-color: #4338ca;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(67, 56, 202, 0.4);
+        }
+    </style>
+
+    <script>
+        (function () {
+            const container = document.getElementById('presentation-container');
+            const slides = document.querySelectorAll('.slide');
+            const navIndicator = document.getElementById('navIndicator');
+            const btnPrev = document.getElementById('btnPrev');
+            const btnNext = document.getElementById('btnNext');
+            const slideCounter = document.getElementById('slideCounter');
+            let currentSlide = 0;
+
+            slides.forEach((_, i) => {
+                const dot = document.createElement('span');
+                dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                dot.addEventListener('click', () => scrollToSlide(i));
+                navIndicator.appendChild(dot);
+            });
+            const dots = document.querySelectorAll('.nav-dot');
+
+            function scrollToSlide(i) { if (i >= 0 && i < slides.length) slides[i].scrollIntoView({ behavior: 'smooth' }); }
+            function updateUI() {
+                dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+                btnPrev.classList.toggle('disabled', currentSlide === 0);
+                btnNext.classList.toggle('disabled', currentSlide === slides.length - 1);
+                slideCounter.textContent = `${currentSlide + 1}/${slides.length}`;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting && e.intersectionRatio > 0.5) { currentSlide = Array.from(slides).indexOf(e.target); updateUI(); } });
+            }, { threshold: 0.5 });
+            slides.forEach(s => observer.observe(s));
+
+            btnPrev.addEventListener('click', () => { if (currentSlide > 0) scrollToSlide(currentSlide - 1); });
+            btnNext.addEventListener('click', () => { if (currentSlide < slides.length - 1) scrollToSlide(currentSlide + 1); });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                if (e.key === 'ArrowUp') { e.preventDefault(); if (currentSlide > 0) scrollToSlide(currentSlide - 1); }
+                else if (e.key === 'ArrowDown') { e.preventDefault(); if (currentSlide < slides.length - 1) scrollToSlide(currentSlide + 1); }
+            });
+            updateUI();
+        })();
+    </script>
+</body>
+
+</html>

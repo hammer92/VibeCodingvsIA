@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Coding vs AI Engineering | Portal</title>
+    <meta name="description"
+        content="Explora la diferencia entre Vibe Coding e Ingeniería de IA. Una guía completa sobre el desarrollo moderno asistido por inteligencia artificial.">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ========================================
+           DESIGN SYSTEM - CSS VARIABLES
+        ======================================== */
+        :root {
+            /* Colors - Cyber Dark Theme */
+            --bg-primary: #0B1120;
+            --bg-secondary: #0F172A;
+            --bg-card: #1E293B;
+            --bg-card-hover: #334155;
+
+            /* Accent Colors */
+            --accent-cyan: #22D3EE;
+            --accent-purple: #A78BFA;
+            --accent-pink: #F472B6;
+            --accent-amber: #FBBF24;
+            --accent-green: #34D399;
+
+            /* Text Colors */
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+
+            /* Gradients */
+            --gradient-hero: linear-gradient(135deg, #0B1120 0%, #1E293B 50%, #0F172A 100%);
+            --gradient-cyan: linear-gradient(135deg, #22D3EE, #06B6D4);
+            --gradient-purple: linear-gradient(135deg, #A78BFA, #8B5CF6);
+            --gradient-pink: linear-gradient(135deg, #F472B6, #EC4899);
+
+            /* Shadows */
+            --shadow-glow-cyan: 0 0 30px rgba(34, 211, 238, 0.3);
+            --shadow-glow-purple: 0 0 30px rgba(167, 139, 250, 0.3);
+            --shadow-glow-pink: 0 0 30px rgba(244, 114, 182, 0.3);
+            --shadow-card: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+
+            /* Transitions */
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ========================================
+           RESET & BASE STYLES
+        ======================================== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--gradient-hero);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Selection */
+        ::selection {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-card);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-cyan);
+        }
+
+        /* ========================================
+           ANIMATED BACKGROUND
+        ======================================== */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 25% 25%, rgba(34, 211, 238, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(167, 139, 250, 0.03) 0%, transparent 50%),
+                radial-gradient(rgba(100, 116, 139, 0.1) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-cyan);
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-purple);
+            bottom: -50px;
+            left: -50px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--accent-pink);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            25% {
+                transform: translate(30px, -30px) scale(1.05);
+            }
+
+            50% {
+                transform: translate(-20px, 20px) scale(0.95);
+            }
+
+            75% {
+                transform: translate(20px, 10px) scale(1.02);
+            }
+        }
+
+        /* ========================================
+           LAYOUT
+        ======================================== */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ========================================
+           HEADER
+        ======================================== */
+        header {
+            padding: var(--space-xl) 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-cyan);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: var(--shadow-glow-cyan);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: var(--shadow-glow-cyan);
+            }
+
+            50% {
+                box-shadow: 0 0 50px rgba(34, 211, 238, 0.5);
+            }
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .logo-text span:first-child {
+            color: var(--accent-cyan);
+        }
+
+        .logo-text span:last-child {
+            color: var(--accent-purple);
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: var(--space-md);
+            letter-spacing: -0.03em;
+        }
+
+        .hero-title .highlight-cyan {
+            background: var(--gradient-cyan);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-title .highlight-purple {
+            background: var(--gradient-purple);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto var(--space-xl);
+            font-weight: 300;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-xs) var(--space-md);
+            background: rgba(34, 211, 238, 0.1);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            margin-bottom: var(--space-lg);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* ========================================
+           NAVIGATION CARDS
+        ======================================== */
+        .nav-section {
+            padding: var(--space-xl) 0 var(--space-2xl);
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .section-label::before,
+        .section-label::after {
+            content: '';
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--text-muted), transparent);
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .nav-card {
+            position: relative;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            border-radius: 24px;
+            padding: var(--space-xl);
+            text-decoration: none;
+            color: inherit;
+            overflow: hidden;
+            transition: var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, var(--card-accent) 100%);
+            opacity: 0;
+            transition: var(--transition-normal);
+            pointer-events: none;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--card-accent);
+            box-shadow: var(--shadow-card);
+        }
+
+        .nav-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .nav-card.card-cyan {
+            --card-accent: var(--accent-cyan);
+        }
+
+        .nav-card.card-purple {
+            --card-accent: var(--accent-purple);
+        }
+
+        .nav-card.card-pink {
+            --card-accent: var(--accent-pink);
+        }
+
+        .card-number {
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--card-accent);
+            opacity: 0.1;
+            line-height: 1;
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(100, 116, 139, 0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: var(--space-md);
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            transition: var(--transition-normal);
+        }
+
+        .nav-card:hover .card-icon {
+            background: var(--card-accent);
+            border-color: var(--card-accent);
+            box-shadow: 0 0 25px var(--card-accent);
+            transform: scale(1.05);
+        }
+
+        .card-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--card-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: var(--space-xs);
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+            letter-spacing: -0.02em;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: var(--space-md);
+            line-height: 1.7;
+        }
+
+        .card-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-md);
+        }
+
+        .feature-tag {
+            padding: 4px 12px;
+            background: rgba(100, 116, 139, 0.2);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border: 1px solid rgba(100, 116, 139, 0.3);
+        }
+
+        .card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-weight: 600;
+            color: var(--card-accent);
+            transition: var(--transition-fast);
+        }
+
+        .card-cta svg {
+            width: 20px;
+            height: 20px;
+            transition: var(--transition-fast);
+        }
+
+        .nav-card:hover .card-cta svg {
+            transform: translateX(5px);
+        }
+
+        /* ========================================
+           FOOTER
+        ======================================== */
+        footer {
+            padding: var(--space-xl) 0;
+            text-align: center;
+            border-top: 1px solid rgba(100, 116, 139, 0.2);
+            margin-top: var(--space-xl);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-text strong {
+            color: var(--accent-cyan);
+        }
+
+        .footer-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        .footer-divider span {
+            width: 6px;
+            height: 6px;
+            background: var(--text-muted);
+            border-radius: 50%;
+        }
+
+        /* ========================================
+           RESPONSIVE
+        ======================================== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--space-md);
+            }
+
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-orb {
+                opacity: 0.2;
+            }
+
+            .logo-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ========================================
+           ANIMATIONS ON LOAD
+        ======================================== */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .fade-in-up:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .fade-in-up:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .fade-in-up:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            animation: scaleIn 0.6s ease forwards;
+        }
+
+        @keyframes scaleIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-grid"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+
+    <!-- Presentation Container -->
+    <div class="presentation-container" id="presentationContainer">
+
+        <!-- Slide 1: Hero -->
+        <section class="slide slide-hero">
+            <div class="slide-content">
+                <div class="logo scale-in">
+                    <div class="logo-icon">🚀</div>
+                    <div class="logo-text">
+                        <span>AI</span><span>SDLC</span>
+                    </div>
+                </div>
+
+                <h1 class="hero-title">
+                    <span class="highlight-purple">Vibe Coding</span>
+                    <br>
+                    <span style="color: var(--text-muted); font-size: 0.5em;">vs.</span>
+                    <br>
+                    <span class="highlight-cyan">AI Engineering</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    Explora la evolución del desarrollo de software moderno.
+                    Desde la creación impulsiva hasta la ingeniería sistemática asistida por inteligencia artificial.
+                </p>
+
+                <div class="scroll-hint">
+                    <span>Desliza para comenzar</span>
+                    <div class="scroll-arrow">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Módulos -->
+        <section class="slide slide-modules">
+            <div class="slide-content">
+                <div class="section-label">
+                    <span>Selecciona un Módulo</span>
+                </div>
+
+                <div class="nav-grid">
+                    <!-- Card 1: Introducción -->
+                    <a href="introduccion.html" class="nav-card card-purple fade-in-up">
+                        <div class="card-number">01</div>
+                        <div class="card-icon">💡</div>
+                        <div class="card-label">Módulo 1</div>
+                        <h2 class="card-title">Introducción</h2>
+                        <p class="card-description">
+                            Comprende la dicotomía entre el desarrollo rápido "Vibe" y la ingeniería rigurosa.
+                            Incluye métricas comparativas y análisis de deuda técnica.
+                        </p>
+                        <div class="card-features">
+                            <span class="feature-tag">Definiciones</span>
+                            <span class="feature-tag">Flujos de Trabajo</span>
+                            <span class="feature-tag">Gráficos</span>
+                            <span class="feature-tag">Lab IA</span>
+                        </div>
+                        <div class="card-cta">
+                            Explorar Introducción
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- Card 2: Arquitectura -->
+                    <a href="arquitectura.html" class="nav-card card-cyan fade-in-up">
+                        <div class="card-number">02</div>
+                        <div class="card-icon">🏗️</div>
+                        <div class="card-label">Módulo 2</div>
+                        <h2 class="card-title">Arquitectura Avanzada</h2>
+                        <p class="card-description">
+                            Descubre las técnicas de próxima generación: Spec-Driven Development,
+                            Model Context Protocol (MCP), Workflows Agénticos y Sistemas Multi-Agente.
+                        </p>
+                        <div class="card-features">
+                            <span class="feature-tag">MCP</span>
+                            <span class="feature-tag">Multi-Agent</span>
+                            <span class="feature-tag">RAG vs Fine-Tuning</span>
+                            <span class="feature-tag">Spec-Driven</span>
+                        </div>
+                        <div class="card-cta">
+                            Explorar Arquitectura
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- Card 3: Implementación -->
+                    <a href="implementacion.html" class="nav-card card-pink fade-in-up">
+                        <div class="card-number">03</div>
+                        <div class="card-icon">⚙️</div>
+                        <div class="card-label">Módulo 3</div>
+                        <h2 class="card-title">Implementación</h2>
+                        <p class="card-description">
+                            Técnicas prácticas de implementación: herramientas, IDEs comparativos,
+                            Spect (Evaluations), GraphRAG y el duelo de plataformas.
+                        </p>
+                        <div class="card-features">
+                            <span class="feature-tag">Herramientas</span>
+                            <span class="feature-tag">IDE Comparison</span>
+                            <span class="feature-tag">Evaluations</span>
+                            <span class="feature-tag">GraphRAG</span>
+                        </div>
+                        <div class="card-cta">
+                            Explorar Implementación
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+
+                <p class="footer-text">
+                    Una presentación interactiva sobre el futuro del <strong>desarrollo asistido por IA</strong>.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+        <div class="nav-indicator" id="navIndicator"></div>
+        <div class="nav-arrows">
+            <button class="nav-arrow nav-arrow-up" id="btnPrev" aria-label="Sección anterior">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                </svg>
+            </button>
+            <button class="nav-arrow nav-arrow-down" id="btnNext" aria-label="Sección siguiente">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+        </div>
+        <div class="nav-hint"><kbd>↑</kbd><kbd>↓</kbd></div>
+        <div class="slide-counter" id="slideCounter">1/2</div>
+    </div>
+
+    <style>
+        /* Presentation Layout */
+        .presentation-container {
+            height: 100vh;
+            overflow-y: auto;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            min-height: 100vh;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: var(--space-lg);
+        }
+
+        .slide-content {
+            max-width: 1280px;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+        }
+
+        /* Slide Hero specific */
+        .slide-hero .slide-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .scroll-arrow {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-cyan);
+        }
+
+        .scroll-arrow svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
+        }
+
+        /* Slide Modules specific */
+        .slide-modules .nav-grid {
+            margin-bottom: var(--space-xl);
+        }
+
+        .slide-modules .footer-text {
+            margin-top: var(--space-lg);
+        }
+
+        /* Navigation Controls */
+        .nav-controls {
+            position: fixed;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            z-index: 100;
+        }
+
+        .nav-indicator {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(100, 116, 139, 0.3);
+            border: 2px solid rgba(100, 116, 139, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot:hover {
+            background: rgba(34, 211, 238, 0.5);
+            border-color: var(--accent-cyan);
+            transform: scale(1.2);
+        }
+
+        .nav-dot.active {
+            background: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 12px rgba(34, 211, 238, 0.6);
+        }
+
+        .nav-arrows {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .nav-arrow {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-arrow svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .nav-arrow:hover:not(.disabled) {
+            background: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+            color: var(--bg-primary);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
+        }
+
+        .nav-arrow.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .nav-hint {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 3px;
+        }
+
+        .nav-hint kbd {
+            padding: 3px 6px;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        .slide-counter {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            background: rgba(30, 41, 59, 0.8);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .nav-controls {
+                right: 10px;
+                gap: 10px;
+            }
+
+            .nav-arrow {
+                width: 34px;
+                height: 34px;
+            }
+
+            .nav-hint,
+            .slide-counter {
+                display: none;
+            }
+
+            .nav-dot {
+                width: 8px;
+                height: 8px;
+            }
+
+            .scroll-hint {
+                bottom: 20px;
+                font-size: 0.75rem;
+            }
+
+            .scroll-arrow {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    </style>
+
+    <script>
+        (function () {
+            const container = document.getElementById('presentationContainer');
+            const slides = document.querySelectorAll('.slide');
+            const navIndicator = document.getElementById('navIndicator');
+            const btnPrev = document.getElementById('btnPrev');
+            const btnNext = document.getElementById('btnNext');
+            const slideCounter = document.getElementById('slideCounter');
+            let currentSlide = 0;
+
+            // Crear dots dinámicamente
+            slides.forEach((_, i) => {
+                const dot = document.createElement('span');
+                dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                dot.addEventListener('click', () => scrollToSlide(i));
+                navIndicator.appendChild(dot);
+            });
+            const dots = document.querySelectorAll('.nav-dot');
+
+            function scrollToSlide(i) {
+                if (i >= 0 && i < slides.length) {
+                    slides[i].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            function updateUI() {
+                dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+                btnPrev.classList.toggle('disabled', currentSlide === 0);
+                btnNext.classList.toggle('disabled', currentSlide === slides.length - 1);
+                slideCounter.textContent = `${currentSlide + 1}/${slides.length}`;
+            }
+
+            // Observer para detectar slide actual
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting && e.intersectionRatio > 0.5) {
+                        currentSlide = Array.from(slides).indexOf(e.target);
+                        updateUI();
+                    }
+                });
+            }, { threshold: 0.5 });
+            slides.forEach(s => observer.observe(s));
+
+            btnPrev.addEventListener('click', () => { if (currentSlide > 0) scrollToSlide(currentSlide - 1); });
+            btnNext.addEventListener('click', () => { if (currentSlide < slides.length - 1) scrollToSlide(currentSlide + 1); });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowUp') { e.preventDefault(); if (currentSlide > 0) scrollToSlide(currentSlide - 1); }
+                else if (e.key === 'ArrowDown') { e.preventDefault(); if (currentSlide < slides.length - 1) scrollToSlide(currentSlide + 1); }
+            });
+
+            updateUI();
+        })();
+    </script>
+</body>
+
+</html>
