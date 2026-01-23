@@ -17,34 +17,31 @@
            DESIGN SYSTEM - CSS VARIABLES
         ======================================== */
         :root {
-            /* Colors - Cyber Dark Theme */
-            --bg-primary: #0B1120;
-            --bg-secondary: #0F172A;
-            --bg-card: #1E293B;
-            --bg-card-hover: #334155;
+            /* Colors - Pragma Dark Theme */
+            --bg-primary: #1D1D1B;
+            --bg-secondary: #262624;
+            --bg-card: #262624;
+            --bg-card-hover: #333331;
 
             /* Accent Colors */
             --accent-cyan: #22D3EE;
-            --accent-purple: #A78BFA;
+            --accent-purple: #6429CD;
+            --accent-glow: #9610FF;
             --accent-pink: #F472B6;
-            --accent-amber: #FBBF24;
-            --accent-green: #34D399;
 
             /* Text Colors */
-            --text-primary: #F8FAFC;
-            --text-secondary: #94A3B8;
-            --text-muted: #64748B;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0B0B0;
+            --text-muted: #707070;
 
             /* Gradients */
-            --gradient-hero: linear-gradient(135deg, #0B1120 0%, #1E293B 50%, #0F172A 100%);
+            --gradient-hero: linear-gradient(135deg, #1D1D1B 0%, #262624 100%);
             --gradient-cyan: linear-gradient(135deg, #22D3EE, #06B6D4);
-            --gradient-purple: linear-gradient(135deg, #A78BFA, #8B5CF6);
-            --gradient-pink: linear-gradient(135deg, #F472B6, #EC4899);
+            --gradient-purple: linear-gradient(135deg, #6429CD, #9610FF);
 
             /* Shadows */
-            --shadow-glow-cyan: 0 0 30px rgba(34, 211, 238, 0.3);
-            --shadow-glow-purple: 0 0 30px rgba(167, 139, 250, 0.3);
-            --shadow-glow-pink: 0 0 30px rgba(244, 114, 182, 0.3);
+            --shadow-glow-cyan: 0 0 30px rgba(34, 211, 238, 0.2);
+            --shadow-glow-purple: 0 0 30px rgba(150, 16, 255, 0.3);
             --shadow-card: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 
             /* Spacing */
@@ -58,7 +55,6 @@
             /* Transitions */
             --transition-fast: 0.2s ease;
             --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* ========================================
@@ -115,11 +111,11 @@
         .bg-grid {
             position: fixed;
             inset: 0;
+            /* Pragma: Subtle geometric lines or "figure 8" patterns in dark grey (5% opacity) */
             background-image:
-                radial-gradient(circle at 25% 25%, rgba(34, 211, 238, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(167, 139, 250, 0.03) 0%, transparent 50%),
-                radial-gradient(rgba(100, 116, 139, 0.1) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 40px 40px;
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
             pointer-events: none;
             z-index: 0;
         }
@@ -351,10 +347,10 @@
 
         .nav-card {
             position: relative;
-            background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(100, 116, 139, 0.2);
-            border-radius: 24px;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            /* Pragma: rounded corners (12px) */
             padding: var(--space-xl);
             text-decoration: none;
             color: inherit;

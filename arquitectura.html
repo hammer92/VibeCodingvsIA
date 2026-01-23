@@ -7,11 +7,33 @@
     <title>AI Engineering: Arquitectura Avanzada</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            900: '#1D1D1B',
+                            800: '#262624',
+                            700: '#333333',
+                        },
+                        purple: {
+                            400: '#6429CD',
+                            500: '#7F45E0',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Fuente Roboto & JetBrains Mono -->
+    <!-- Fuente Outfit & JetBrains Mono -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=JetBrains+Mono:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=JetBrains+Mono:wght@400;700&display=swap"
         rel="stylesheet">
     <!-- Markdown Parser -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -19,8 +41,8 @@
     <style>
         /* --- CORE STYLES --- */
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #0B1120;
+            font-family: 'Outfit', sans-serif;
+            background-color: #1D1D1B;
             /* Darker Slate */
             color: #F8FAFC;
             height: 100vh;
@@ -567,48 +589,6 @@
                     <strong class="text-yellow-400">La Estrategia Ganadora:</strong> Híbrido. Fine-tuning para enseñar
                     el "estilo" y "razonamiento" de la empresa, RAG para inyectar los datos del día a día.
                 </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- SLIDE 7: GEMINI LAB (Re-integrado) -->
-    <section id="ai-lab" class="presentation-slide">
-        <div class="max-w-7xl mx-auto px-4 w-full h-full flex flex-col justify-center">
-            <div
-                class="bg-slate-800/50 rounded-3xl p-8 border border-cyan-500/30 shadow-2xl relative overflow-hidden flex-grow max-h-[80vh]">
-
-                <h2 class="text-3xl font-bold text-white mb-4 flex items-center">
-                    <span class="mr-3 text-4xl">🧪</span> Laboratorio de Auditoría IA
-                </h2>
-                <p class="text-slate-300 mb-4 text-sm">
-                    Pega tu código. Gemini actuará como un <strong>Senior Architect</strong> evaluando si aplicaste las
-                    técnicas aprendidas.
-                </p>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[80%]">
-                    <div class="flex flex-col h-full">
-                        <textarea id="codeInput"
-                            class="flex-grow bg-slate-950 text-slate-300 font-mono text-xs p-4 rounded-xl border border-slate-700 focus:border-cyan-500 outline-none resize-none"
-                            placeholder="// Pega aquí tu código o arquitectura JSON..."></textarea>
-                        <button onclick="auditCode()" id="auditButton"
-                            class="mt-4 w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg">
-                            Auditar Arquitectura
-                        </button>
-                    </div>
-
-                    <div class="flex flex-col h-full relative">
-                        <div id="auditOutput"
-                            class="flex-grow bg-slate-950/50 rounded-xl border border-slate-700 p-6 overflow-y-auto">
-                            <div id="loadingIndicator"
-                                class="hidden absolute inset-0 flex flex-col items-center justify-center bg-slate-900/90 z-20">
-                                <div class="text-cyan-400 animate-pulse">Analizando Patrones...</div>
-                            </div>
-                            <div id="resultContent" class="text-slate-300 prose prose-invert prose-sm">
-                                <p class="text-slate-500 text-center mt-20">Esperando input...</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>

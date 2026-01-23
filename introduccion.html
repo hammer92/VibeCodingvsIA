@@ -7,18 +7,42 @@
     <title>Vibe Coding vs. Ingeniería Asistida por IA</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            900: '#1D1D1B', /* Pragma Deep Dark */
+                            800: '#262624', /* Pragma Card Dark */
+                            700: '#333333', /* Pragma Border/Hover */
+                            300: '#B0B0B0', /* Pragma Text Secondary */
+                            400: '#94A3B8',
+                        },
+                        purple: {
+                            400: '#6429CD', /* Pragma Primary Purple */
+                            500: '#7F45E0',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Fuente Roboto (Google Fonts) -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <!-- Fuente Outfit (Google Fonts) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
     <!-- Markdown Parser para la respuesta de Gemini -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
         /* Configuración General y Tipografía */
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #0F172A;
+            font-family: 'Outfit', sans-serif;
+            background-color: #1D1D1B;
             /* Slate 900 */
             color: #F8FAFC;
             /* Slate 50 */
@@ -398,67 +422,6 @@
                         <canvas id="timeChart"></canvas>
                     </div>
                     <p class="text-sm text-slate-400 mt-4 text-center">Desplazamiento de "Escribir" a "Revisar".</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN 5: Gemini Lab (Slide 6) -->
-        <section id="ai-lab" class="presentation-slide max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div
-                class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 border border-cyan-500/40 shadow-2xl relative overflow-hidden w-full">
-                <div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
-                    <svg width="300" height="300" viewBox="0 0 24 24" fill="currentColor" class="text-cyan-400">
-                        <path
-                            d="M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8 8 8 0 0 0-8-8m0 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4" />
-                    </svg>
-                </div>
-
-                <h2 class="text-4xl font-bold text-white mb-4 flex items-center relative z-10">
-                    <span class="mr-3 text-5xl">🧪</span> Laboratorio de Auditoría IA
-                </h2>
-                <p class="text-slate-300 mb-6 max-w-3xl relative z-10 text-lg">
-                    Gemini actúa como tu <strong>Senior Tech Lead</strong>. Pega código y observa el contraste de
-                    opiniones.
-                </p>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10 h-[50vh]">
-                    <div class="flex flex-col h-full">
-                        <textarea id="codeInput"
-                            class="flex-grow bg-slate-950 text-slate-300 font-mono text-sm p-4 rounded-xl border border-slate-700 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none transition-all resize-none shadow-inner"
-                            placeholder="// Pega tu función aquí...
-function fastFix(user) {
-  // No hay tiempo para validar
-  return db.query('SELECT * FROM users WHERE id = ' + user.id); 
-}"></textarea>
-                        <button onclick="auditCode()" id="auditButton"
-                            class="mt-4 w-full bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white font-bold py-4 px-6 rounded-xl transition-all transform hover:scale-[1.01] shadow-lg flex items-center justify-center text-lg">
-                            <span>Auditar Código ✨</span>
-                        </button>
-                        <p id="errorMessage" class="text-red-400 text-sm mt-2 hidden"></p>
-                    </div>
-
-                    <div class="flex flex-col h-full">
-                        <div id="auditOutput"
-                            class="flex-grow bg-slate-950/50 rounded-xl border border-slate-700 p-6 overflow-y-auto shadow-inner relative">
-                            <div id="placeholderText"
-                                class="text-slate-500 text-center h-full flex flex-col items-center justify-center opacity-50">
-                                <span class="text-6xl mb-4">📊</span>
-                                <p class="text-xl">Esperando input...</p>
-                            </div>
-                            <div id="loadingIndicator"
-                                class="hidden absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 z-20 backdrop-blur-sm">
-                                <div class="typing-indicator mb-4 scale-150">
-                                    <span></span><span></span><span></span>
-                                </div>
-                                <p class="text-cyan-400 text-lg animate-pulse font-mono">Analizando vulnerabilidades...
-                                </p>
-                            </div>
-                            <div id="resultContent"
-                                class="hidden text-slate-300 prose prose-invert prose-sm max-w-none">
-                                <!-- Gemini output goes here -->
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>

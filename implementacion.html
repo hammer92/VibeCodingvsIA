@@ -6,6 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ingeniería de IA: Presentación Interactiva</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Inverting Light Mode to Pragma Dark Mode
+                        white: '#1D1D1B', /* Was white, now Dark BG */
+                        gray: { 100: '#333333', 200: '#444444' },
+                        slate: {
+                            50: '#1D1D1B',  /* Was light bg, now Dark */
+                            100: '#2A2A2A', /* Was slightly darker light, now Card */
+                            500: '#9CA3AF', /* Muted text -> Light Gray */
+                            600: '#CBD5E1', /* Dark text -> White-ish */
+                            700: '#E2E8F0',
+                            800: '#FFFFFF', /* Darkest text -> White */
+                            900: '#FFFFFF',
+                        },
+                        indigo: {
+                            50: '#262624', /* Backgrounds */
+                            100: '#333',
+                            600: '#6429CD', /* Primary Brand */
+                            700: '#7F45E0',
+                            800: '#9610FF',
+                            900: '#FFFFFF',
+                        },
+                        pink: {
+                            600: '#F472B6',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <!-- Google Fonts -->
@@ -22,9 +58,8 @@
 
     <style>
         body {
-            font-family: 'Outfit', sans-serif;
-            background-color: #f8fafc;
-            color: #1e293b;
+            background-color: #1D1D1B;
+            color: #FFFFFF;
             margin: 0;
             padding: 0;
             overflow: hidden;
@@ -98,7 +133,7 @@
         }
 
         #presentation-container::-webkit-scrollbar-thumb {
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.2);
             border-radius: 4px;
         }
     </style>
